@@ -2,18 +2,19 @@
 @model razorweb.Pages.Blog.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Các bài viết";
+    int i = 0;
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+
+<h1>Các bài viết</h1>
+
+
 <br>
 <form method="get" asp-page="./Index">
     <p>
-        Title: <input type="text" asp-for="SearchString" />
+        Tìm kiếm bài viết: <input type="text" asp-for="SearchString" />
         <input type="submit" value="Tìm" />
     </p>
 </form>
@@ -21,14 +22,12 @@
 <table class="table">
     <thead>
         <tr>
+            <th>STT</th>
             <th>
                 @Html.DisplayNameFor(model => model.Article[0].Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Article[0].PublishDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Article[0].Content)
             </th>
             <th></th>
         </tr>
@@ -38,20 +37,33 @@
         {
             <tr>
                 <td>
+                    @(++i)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PublishDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Content)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                    <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.ID">Chỉnh sửa</a> |<br>
+                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.ID">Xem chi tiết</a> |
+                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.ID">Xóa</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<br>
+<p>
+    <a class="btn btn-primary" asp-page="Create">Tạo bài viết mới</a>
+</p>
+
+@{
+    var pagingmodel = new razorweb.Helper.PagingModel(){
+        currentPage = Model.currentPage,
+        countPages = Model.countPages,
+        generateUrl = (int? p) => @Url.Page("/Blog/Index", new {p})
+    };
+}
+<partial name="_Paging" model="@pagingmodel"/>

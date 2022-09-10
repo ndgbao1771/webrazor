@@ -2,15 +2,15 @@
 @model razorweb.Pages_Blog.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh sửa bài viết";
 }
 
-<h1>Edit</h1>
+<h1>Chỉnh sửa bài viết</h1>
 
-<h4>Article</h4>
+<h4>Nội dung chỉnh sửa</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Article.ID" />
@@ -26,18 +26,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="Article.Content" class="control-label"></label>
-                <input asp-for="Article.Content" class="form-control" />
+                <textarea asp-for="Article.Content" class="form-control"></textarea>
                 <span asp-validation-for="Article.Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a class="btn btn-primary" asp-page="./Index">Danh sách bài viết</a>
 </div>
 
 @section Scripts {
