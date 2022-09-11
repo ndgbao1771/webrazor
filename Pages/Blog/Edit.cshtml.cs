@@ -6,16 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using razorweb.Data;
 using razorweb.Models;
 
 namespace razorweb.Pages_Blog
 {
     public class EditModel : PageModel
     {
-        private readonly razorweb.Data.ArticleContext _context;
+        private readonly razorweb.Models.ArticleContext _context;
 
-        public EditModel(razorweb.Data.ArticleContext context)
+        public EditModel(razorweb.Models.ArticleContext context)
         {
             _context = context;
         }

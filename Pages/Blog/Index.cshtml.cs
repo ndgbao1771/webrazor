@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using razorweb.Data;
 using razorweb.Models;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,17 +12,17 @@ namespace razorweb.Pages.Blog
 {
     public class IndexModel : PageModel
     {
-        private readonly razorweb.Data.ArticleContext _context;
+        private readonly razorweb.Models.ArticleContext _context;
 
-        public IndexModel(razorweb.Data.ArticleContext context)
+        public IndexModel(razorweb.Models.ArticleContext context)
         {
             _context = context;
         }
 
         // số phần tử hiển thị trên 1 trang
-        public const int ITEM_PER_PAGE = 10;
+        public const int ITEM_PER_PAGE = 5;
 
-        [BindProperty(SupportsGet = true, Name = "p")]
+        [BindProperty(SupportsGet = true, Name = "pages")]
         public int currentPage {get; set;}
         public int countPages {get; set;}
 

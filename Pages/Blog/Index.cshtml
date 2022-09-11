@@ -1,4 +1,4 @@
-@page "/blogs"
+@page "/blog"
 @model razorweb.Pages.Blog.IndexModel
 
 @{
@@ -63,7 +63,7 @@
     var pagingmodel = new razorweb.Helper.PagingModel(){
         currentPage = Model.currentPage,
         countPages = Model.countPages,
-        generateUrl = (int? p) => @Url.Page("/Blog/Index", new {p})
+        generateUrl = (int? p) => Url.Page("/Blog/Index", new {pages = p})
     };
 }
-<partial name="_Paging" model="@pagingmodel"/>
+<partial name="_Paging" model="pagingmodel"/>

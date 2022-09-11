@@ -5,7 +5,7 @@
       - generateUrl:delegate Func<int?, string> trả về URL tương ứng với trang p (1,2,3 ...)
 *@
 
-@model dynamic
+@model razorweb.Helper.PagingModel
 @{
     int currentPage  = Model.currentPage;
     int countPages   = Model.countPages;

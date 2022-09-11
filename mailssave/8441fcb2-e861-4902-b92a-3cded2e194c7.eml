@@ -1,0 +1,10 @@
+From: vuka <acb@gmail.com>
+Date: Sun, 11 Sep 2022 22:58:19 +0700
+Subject: Confirm your email
+Message-Id: <KBXX1V6UUHU4.3NMU6WZJQK7A2@giabao>
+Sender: vuka <acb@gmail.com>
+To: abc1234567@gmail.com
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+Please confirm your account by <a href='https://localhost:5001/Identity/Account/ConfirmEmail?userId=178566ea-23c6-426a-a8e5-c13c0141f96a&amp;code=Q2ZESjhKbTlObE9FbTVGRnRsQVBoVXhaZ2xMRXZBTDcxd0NmbXZwRTRQVnorZUlrSzgyTHJBei9Da2FUczdCaUptZUNoOGVXUnFubE82RmdkbXhScEtjTVBvK1JZc2h5SVhZVXJQMWlOMXFNQ2FxQml3cGFlVUFLWG90TmdzUVY5K0paVW0vTTdJRDQ4Nzh1YVRaVTZkNDAxbTl2N2ovQ2cxYXh6UEdET1RiUWQ3bkg5dEtsRzY3VDNycEtRU1l1ajhKV0o0UkdjcHlLQlJ1NUFCOGNQSXNTU0E5KzkxK3NWaWp4ZTBPcytzQmlvdGs3bDM4b0xTOE5wbmFqTmZHSlRQREVyQT09&amp;returnUrl=%2F'>clicking here</a>.

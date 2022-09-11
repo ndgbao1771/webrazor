@@ -5,16 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using razorweb.Data;
 using razorweb.Models;
 
 namespace razorweb.Pages_Blog
 {
     public class CreateModel : PageModel
     {
-        private readonly razorweb.Data.ArticleContext _context;
+        private readonly razorweb.Models.ArticleContext _context;
 
-        public CreateModel(razorweb.Data.ArticleContext context)
+        public CreateModel(razorweb.Models.ArticleContext context)
         {
             _context = context;
         }
