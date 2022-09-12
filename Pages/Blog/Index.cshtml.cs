@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using razorweb.Models;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authorization;
 
 namespace razorweb.Pages.Blog
 {
+    [Authorize] // xác định quyền truy cập
     public class IndexModel : PageModel
     {
         private readonly razorweb.Models.ArticleContext _context;

@@ -71,6 +71,7 @@ namespace razorweb
                 // Cấu hình đăng nhập.
                 options.SignIn.RequireConfirmedEmail = true;            // Cấu hình xác thực địa chỉ email (email phải tồn tại)
                 options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
+                options.SignIn.RequireConfirmedAccount = true;         // Xác nhận tài khoản
 
             });
 
@@ -78,6 +79,13 @@ namespace razorweb
             var mailsetting = Configuration.GetSection("MailSettings");
             services.Configure<MailSettings>(mailsetting);
             services.AddSingleton<IEmailSender, SendMailService>();
+
+
+            services.ConfigureApplicationCookie(options => {
+                options.LoginPath = "/login/";
+                options.LogoutPath = "/logout/";
+                options.AccessDeniedPath = "/khongduoctruycap.html";
+            });
 
         }
 
