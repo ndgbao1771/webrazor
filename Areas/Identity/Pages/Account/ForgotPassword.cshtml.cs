@@ -31,8 +31,8 @@ namespace razorweb.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "{0} không được bỏ trống")]
+            [EmailAddress(ErrorMessage = "Sai định dạng {0}")]
             public string Email { get; set; }
         }
 
@@ -59,8 +59,8 @@ namespace razorweb.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "Thay đổi mật khẩu",
+                    $"Bấm <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>vào đây</a> để thay đổi mật khẩu.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

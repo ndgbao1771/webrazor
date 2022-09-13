@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace razorweb.Pages.Blog
 {
-    [Authorize] // xác định quyền truy cập
+    [Authorize] // xác định quyền truy cập (phải đăng nhập mới vào dc)
     public class IndexModel : PageModel
     {
         private readonly razorweb.Models.ArticleContext _context;
