@@ -3,9 +3,16 @@
 
 @{
     ViewData["Title"] = "Đăng nhập";
+    var thongbao = TempData["ErrorMessage"];
 }
 
 <h1>@ViewData["Title"]</h1>
+@if (TempData.ContainsKey("ErrorMessage"))
+{
+    <partial name="/Areas/Identity/Pages/Account/_StatusMessage.cshtml" model="thongbao" />
+
+}
+
 <div class="row">
     <div class="col-md-4">
         <section>
@@ -61,12 +68,14 @@
                 }
                 else
                 {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post"
+                class="form-horizontal">
                         <div>
                             <p>
                                 @foreach (var provider in Model.ExternalLogins)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name"
+                                title="Đăng nhập bằng @provider.DisplayName">@provider.DisplayName</button>
                                 }
                             </p>
                         </div>
@@ -78,5 +87,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }

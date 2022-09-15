@@ -75,17 +75,41 @@ namespace razorweb
 
             });
 
+            //gửi mail xác nhận
             services.AddOptions();
             var mailsetting = Configuration.GetSection("MailSettings");
             services.Configure<MailSettings>(mailsetting);
             services.AddSingleton<IEmailSender, SendMailService>();
 
-
-            services.ConfigureApplicationCookie(options => {
+            // cấu hình dữ liệu đăng nhập
+            services.ConfigureApplicationCookie(options =>
+            {
                 options.LoginPath = "/login/";
                 options.LogoutPath = "/logout/";
                 options.AccessDeniedPath = "/khongduoctruycap.html";
             });
+
+            // cấu hình đăng nhập bởi dịch vụ (cấu hình cách dịch vụ còn lại tương tự như cấu hình gg)
+            services.AddAuthentication()
+                    .AddGoogle(options =>
+                    {
+                        var gconfig = Configuration.GetSection("Authentication:Google");
+                        options.ClientId = gconfig["ClientId"];
+                        options.ClientSecret = gconfig["ClientSecret"];
+                        options.CallbackPath = "/dang-nhap-tu-google";
+                        //nêu không thiết lập callbackpath thì mặc định sẽ chạy https://localhost:5001/signin-google
+                    })
+                    .AddFacebook(options=>
+                    {
+                        // Đọc cấu hình
+                        var fconfig = Configuration.GetSection("Authentication:Facebook");
+                        options.AppId = fconfig["AppId"];
+                        options.AppSecret = fconfig["AppSecret"];
+                        // Thiết lập đường dẫn Facebook chuyển hướng đến
+                        options.CallbackPath = "/dang-nhap-tu-facebook";
+                    });
+                    // .AddTwitter()
+                    // .AddMicrosoftAccount()
 
         }
 
