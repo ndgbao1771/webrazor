@@ -11,9 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using razorweb.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace razorweb.Areas.Identity.Pages.Account.Manage
 {
+    [Authorize]
     public partial class EmailModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;
@@ -46,7 +48,7 @@ namespace razorweb.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "Email mới")]
             public string NewEmail { get; set; }
         }
 
@@ -103,9 +105,9 @@ namespace razorweb.Areas.Identity.Pages.Account.Manage
                 await _emailSender.SendEmailAsync(
                     Input.NewEmail,
                     "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    $"<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Bấm vào đây để đổi email/a>.");
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                StatusMessage = "Kiểm tra email mới để xác nhận.";
                 return RedirectToPage();
             }
 
