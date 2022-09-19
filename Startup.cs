@@ -111,6 +111,8 @@ namespace razorweb
                     // .AddTwitter()
                     // .AddMicrosoftAccount()
 
+            services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
