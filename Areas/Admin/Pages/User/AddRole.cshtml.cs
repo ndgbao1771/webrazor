@@ -18,14 +18,17 @@ namespace razorweb.Admin.User
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
+        private readonly ArticleContext _articleContext;
         public AddRoleModel(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            ArticleContext articleContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _articleContext = articleContext;
         }
 
 
@@ -38,7 +41,29 @@ namespace razorweb.Admin.User
         [Display(Name = "Các role gán cho User")]
         public string[] RoleName { get; set; }
 
-        public SelectList allRoles {get; set;}
+        public SelectList allRoles { get; set; }
+
+        public List<IdentityRoleClaim<string>> claimsInRole { get; set; }
+
+        public List<IdentityUserClaim<string>> claimsInUserClaim { get; set; }
+
+
+        async Task GetClaims(string id)
+        {
+            var listRoles = from r in _articleContext.Roles
+                            join ur in _articleContext.UserRoles on r.Id equals ur.RoleId
+                            where ur.UserId == id
+                            select r;
+
+            var _claimsInRole = from c in _articleContext.RoleClaims
+                                join r in listRoles on c.RoleId equals r.Id
+                                select c;
+
+            claimsInRole = await _claimsInRole.ToListAsync();
+
+            claimsInUserClaim = await (from c in _articleContext.UserClaims
+            where c.UserId == id select c).ToListAsync();
+        }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -59,12 +84,14 @@ namespace razorweb.Admin.User
 
             allRoles = new SelectList(roleNames);
 
+            await GetClaims(id);
+            
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string id)
         {
-             if(string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 return NotFound("Không có user");
             }
@@ -76,20 +103,24 @@ namespace razorweb.Admin.User
             }
 
             // rolename
-             var oldRoleNames = (await _userManager.GetRolesAsync(user)).ToArray();
 
-             var deleteRole = oldRoleNames.Where(r => !RoleName.Contains(r));
+            await GetClaims(id);
 
-             var addRole = RoleName.Where(r => !oldRoleNames.Contains(r));
-            
+            var oldRoleNames = (await _userManager.GetRolesAsync(user)).ToArray();
+
+            var deleteRole = oldRoleNames.Where(r => !RoleName.Contains(r));
+
+            var addRole = RoleName.Where(r => !oldRoleNames.Contains(r));
+
             List<string> roleNames = await _roleManager.Roles.Select(r => r.Name).ToListAsync();
             allRoles = new SelectList(roleNames);
 
             var resultDelete = await _userManager.RemoveFromRolesAsync(user, deleteRole);
 
-            if(!resultDelete.Succeeded)
+            if (!resultDelete.Succeeded)
             {
-                resultDelete.Errors.ToList().ForEach(error =>{
+                resultDelete.Errors.ToList().ForEach(error =>
+                {
                     ModelState.AddModelError(string.Empty, error.Description);
                 });
                 return Page();
@@ -97,9 +128,10 @@ namespace razorweb.Admin.User
 
             var resultAdd = await _userManager.AddToRolesAsync(user, addRole);
 
-            if(!resultAdd.Succeeded)
+            if (!resultAdd.Succeeded)
             {
-                resultAdd.Errors.ToList().ForEach(error =>{
+                resultAdd.Errors.ToList().ForEach(error =>
+                {
                     ModelState.AddModelError(string.Empty, error.Description);
                 });
                 return Page();

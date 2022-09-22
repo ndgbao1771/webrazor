@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -6,10 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using razorweb.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace razorweb.Admin.Role
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "AllowEditRole")]
     public class EditModel : RolePageModel
     {
         public EditModel(RoleManager<IdentityRole> roleManager, ArticleContext articleContext) : base(roleManager, articleContext)
@@ -27,6 +30,8 @@ namespace razorweb.Admin.Role
         [BindProperty]
         public InputModel Input { get; set; }
 
+        public List<IdentityRoleClaim<string>> Claims {get; set;}
+
         public IdentityRole role { get; set; }
 
         public async Task<IActionResult> OnGet(string roleid)
@@ -41,6 +46,9 @@ namespace razorweb.Admin.Role
                 {
                     Name = role.Name
                 };
+
+                Claims = await _articleContext.RoleClaims.Where(rc => rc.RoleId == role.Id).ToListAsync();
+
                 return Page();
             }
             return NotFound("Không tìm thấy role");
@@ -51,6 +59,9 @@ namespace razorweb.Admin.Role
             if (roleid == null) return NotFound("Không tìm thấy role");
             role = await _roleManager.FindByIdAsync(roleid);
             if (role == null) return NotFound("Không tìm thấy role");
+
+            Claims = await _articleContext.RoleClaims.Where(rc => rc.RoleId == role.Id).ToListAsync();
+
             if (!ModelState.IsValid)
             {
                 return Page();
