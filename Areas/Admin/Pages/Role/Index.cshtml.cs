@@ -5,15 +5,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using razorweb.Models;
+using App.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace razorweb.Admin.Role
+namespace App.Admin.Role
 {
     [Authorize(Roles = "Admin")]
     public class IndexModel : RolePageModel
     {
-        public IndexModel(RoleManager<IdentityRole> roleManager, ArticleContext articleContext) : base(roleManager, articleContext)
+        public IndexModel(RoleManager<IdentityRole> roleManager, AppDbContext articleContext) : base(roleManager, articleContext)
         {
 
         }

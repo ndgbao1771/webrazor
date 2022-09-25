@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using razorweb.Models;
+using App.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace razorweb.Admin.Role
+namespace App.Admin.Role
 {
     [Authorize(Policy = "AllowEditRole")]
     public class EditModel : RolePageModel
     {
-        public EditModel(RoleManager<IdentityRole> roleManager, ArticleContext articleContext) : base(roleManager, articleContext)
+        public EditModel(RoleManager<IdentityRole> roleManager, AppDbContext articleContext) : base(roleManager, articleContext)
         {
         }
 

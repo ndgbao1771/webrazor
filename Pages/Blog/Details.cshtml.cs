@@ -2,18 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using razorweb.Models;
+using App.Models;
 
-namespace razorweb.Pages_Blog
+namespace App.Pages_Blog
 {
+    [Authorize(Policy = "InGenZ")] // nam sinh 1997 - 2012
     public class DetailsModel : PageModel
     {
-        private readonly razorweb.Models.ArticleContext _context;
+        private readonly App.Models.AppDbContext _context;
 
-        public DetailsModel(razorweb.Models.ArticleContext context)
+        public DetailsModel(App.Models.AppDbContext context)
         {
             _context = context;
         }

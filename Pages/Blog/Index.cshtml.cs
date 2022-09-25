@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using razorweb.Models;
+using App.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 
-namespace razorweb.Pages.Blog
+namespace App.Pages.Blog
 {
     [Authorize] // xác định quyền truy cập (phải đăng nhập mới vào dc)
     public class IndexModel : PageModel
     {
-        private readonly razorweb.Models.ArticleContext _context;
+        private readonly App.Models.AppDbContext _context;
 
-        public IndexModel(razorweb.Models.ArticleContext context)
+        public IndexModel(App.Models.AppDbContext context)
         {
             _context = context;
         }

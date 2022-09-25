@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using razorweb.Models;
+using App.Models;
 
-namespace razorweb.Admin.User
+namespace App.Admin.User
 {
     public class AddRoleModel : PageModel
     {
@@ -18,12 +18,12 @@ namespace razorweb.Admin.User
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        private readonly ArticleContext _articleContext;
+        private readonly AppDbContext _articleContext;
         public AddRoleModel(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             RoleManager<IdentityRole> roleManager,
-            ArticleContext articleContext)
+            AppDbContext articleContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;

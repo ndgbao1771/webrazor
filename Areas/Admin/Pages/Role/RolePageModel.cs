@@ -1,20 +1,20 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using razorweb.Models;
+using App.Models;
 
-namespace razorweb.Admin.Role
+namespace App.Admin.Role
 {
     public class RolePageModel : PageModel
     {
         protected readonly RoleManager<IdentityRole> _roleManager;
 
-        protected readonly ArticleContext _articleContext;
+        protected readonly AppDbContext _articleContext;
         
         [TempData]
         public string StatusMessage {get; set;}
 
-        public RolePageModel(RoleManager<IdentityRole> roleManager, ArticleContext articleContext){
+        public RolePageModel(RoleManager<IdentityRole> roleManager, AppDbContext articleContext){
             _roleManager = roleManager;
             _articleContext = articleContext;
         }

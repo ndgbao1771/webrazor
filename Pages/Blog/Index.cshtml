@@ -1,5 +1,5 @@
 @page "/blog"
-@model razorweb.Pages.Blog.IndexModel
+@model App.Pages.Blog.IndexModel
 
 @{
     ViewData["Title"] = "Các bài viết";
@@ -60,7 +60,7 @@
 </p>
 
 @{
-    var pagingmodel = new razorweb.Helper.PagingModel(){
+    var pagingmodel = new App.Helper.PagingModel(){
         currentPage = Model.currentPage,
         countPages = Model.countPages,
         generateUrl = (int? p) => Url.Page("/Blog/Index", new {pages = p})

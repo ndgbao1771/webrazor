@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using razorweb.Models;
+using App.Models;
 
-namespace razorweb.Models
+namespace App.Models
 {
-    public class ArticleContext : IdentityDbContext<AppUser>
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
-        public ArticleContext(DbContextOptions<ArticleContext> options) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
             // Phương thức khởi tạo này chứa options để kết nối đến MS SQL Server
             // Thực hiện điều này khi Inject trong dịch vụ hệ thống

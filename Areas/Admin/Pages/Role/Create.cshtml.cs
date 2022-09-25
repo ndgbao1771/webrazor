@@ -4,15 +4,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using razorweb.Models;
+using App.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace razorweb.Admin.Role
+namespace App.Admin.Role
 {
     [Authorize(Roles = "Admin")]
     public class CreateModel : RolePageModel
     {
-        public CreateModel(RoleManager<IdentityRole> roleManager, ArticleContext articleContext) : base(roleManager, articleContext)
+        public CreateModel(RoleManager<IdentityRole> roleManager, AppDbContext articleContext) : base(roleManager, articleContext)
         {
         }
 

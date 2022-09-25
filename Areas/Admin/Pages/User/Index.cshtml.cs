@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using razorweb.Models;
+using App.Models;
 using System;
 using Microsoft.AspNetCore.Authorization;
 
-namespace razorweb.Admin.User
+namespace App.Admin.User
 {
     [Authorize]
     public class IndexModel : PageModel

@@ -2,21 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using razorweb.Models;
+using App.Models;
 
-namespace razorweb.Pages_Blog
+namespace App.Pages_Blog
 {
     public class EditModel : PageModel
     {
-        private readonly razorweb.Models.ArticleContext _context;
+        private readonly App.Models.AppDbContext _context;
 
-        public EditModel(razorweb.Models.ArticleContext context)
+        private readonly IAuthorizationService _authorizationService;
+
+        public EditModel(App.Models.AppDbContext context, IAuthorizationService authorizationService)
         {
             _context = context;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
@@ -51,8 +55,19 @@ namespace razorweb.Pages_Blog
 
             try
             {
-                await _context.SaveChangesAsync();
+                // kiểm tra quyền cập nhật
+                var canupdate = await _authorizationService.AuthorizeAsync(this.User, Article, "CanUpdateArticle");
+                if(canupdate.Succeeded)
+                {
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    return Content("Không được quyền cập nhật");
+                }
+                
             }
+
             catch (DbUpdateConcurrencyException)
             {
                 if (!ArticleExists(Article.ID))

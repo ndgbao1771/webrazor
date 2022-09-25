@@ -7,19 +7,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-using razorweb.Models;
+using App.Models;
 
 
-namespace razorweb.Admin.User
+namespace App.Admin.User
 {
     [AllowAnonymous]
     public class EditUserRoleClaimModel : PageModel
     {
 
-        private readonly ArticleContext _articleContext;
+        private readonly AppDbContext _articleContext;
         private readonly UserManager<AppUser> _userManager;
 
-        public EditUserRoleClaimModel(ArticleContext articleContext, UserManager<AppUser> userManager)
+        public EditUserRoleClaimModel(AppDbContext articleContext, UserManager<AppUser> userManager)
         {
             _articleContext = articleContext;
             _userManager = userManager;

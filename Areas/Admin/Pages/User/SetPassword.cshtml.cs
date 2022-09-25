@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using razorweb.Models;
+using App.Models;
 
-namespace razorweb.Admin.User
+namespace App.Admin.User
 {
     public class SetPasswordModel : PageModel
     {

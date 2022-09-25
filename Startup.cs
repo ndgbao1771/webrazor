@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,10 +14,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using razorweb.Models;
-using razorweb.Services;
+using App.Models;
+using App.Security.Requirements;
+using App.Services;
 
-namespace razorweb
+namespace App
 {
     public class Startup
     {
@@ -32,7 +34,7 @@ namespace razorweb
         {
             services.AddRazorPages();
 
-            services.AddDbContext<ArticleContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
             {
                 string connectstring = Configuration.GetConnectionString("ArticleContext");
                 options.UseSqlServer(connectstring);
@@ -40,7 +42,7 @@ namespace razorweb
 
             //dang ki identity
             services.AddIdentity<AppUser, IdentityRole>()
-                    .AddEntityFrameworkStores<ArticleContext>()
+                    .AddEntityFrameworkStores<AppDbContext>()
                     .AddDefaultTokenProviders();
 
             // services.AddDefaultIdentity<AppUser>()
@@ -123,7 +125,24 @@ namespace razorweb
                     policyBuilder.RequireClaim("canedit", "user");
                 });
 
+                options.AddPolicy("InGenZ", policyBuilder => {
+                   
+                    policyBuilder.RequireAuthenticatedUser();
+                    // policyBuilder.RequireClaim("canedit", "user");
+                    policyBuilder.Requirements.Add(new GenZRequirement()); //GenZRequirement
+                });
+
+                options.AddPolicy("ShowAdminMenu", policyBuilder => {
+                   policyBuilder.RequireRole("Admin");
+                });
+
+                options.AddPolicy("CanUpdateArticle", policyBuilder => {
+                   policyBuilder.Requirements.Add(new ArticleUpdateRequirement());
+                });
+                
             });
+
+            services.AddTransient<IAuthorizationHandler, AppAuthorizationHandler>();
 
         }
 

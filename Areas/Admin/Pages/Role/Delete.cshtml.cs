@@ -4,15 +4,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using razorweb.Models;
+using App.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace razorweb.Admin.Role
+namespace App.Admin.Role
 {
     [Authorize(Roles = "Admin")]
     public class DeleteModel : RolePageModel
     {
-        public DeleteModel(RoleManager<IdentityRole> roleManager, ArticleContext articleContext) : base(roleManager, articleContext)
+        public DeleteModel(RoleManager<IdentityRole> roleManager, AppDbContext articleContext) : base(roleManager, articleContext)
         {
         }
 

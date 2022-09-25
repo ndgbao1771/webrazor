@@ -1,5 +1,5 @@
 ﻿@page "/admin/members"
-@model razorweb.Admin.User.IndexModel
+@model App.Admin.User.IndexModel
 @{
     ViewData["Title"] = "Danh sách các role (vai trò)";
 }
@@ -40,7 +40,7 @@
 </table>
 
 @{
-    var pagingmodel = new razorweb.Helper.PagingModel(){
+    var pagingmodel = new App.Helper.PagingModel(){
         currentPage = Model.currentPage,
         countPages = Model.countPages,
         generateUrl = (int? p) => Url.Page("./Index", new {pages = p})
